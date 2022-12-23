@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+  postgres-db:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-otus_diploma}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-otus_diploma}
+    volumes:
+      - ./start_db.sql:/docker-entrypoint-initdb.d/db.sql
+      - ./postgres-data:/var/lib/postgresql/data
+
+    ports:
+      - "5432:5432"
+
+    restart: unless-stopped
